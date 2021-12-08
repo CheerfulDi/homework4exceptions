@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.homework4exceptions.model.Employee;
 import pro.sky.java.course2.homework4exceptions.service.EmployeeService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(path="/employee")
@@ -18,20 +20,26 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(path = "/add")
-    public String add(@RequestParam String firstName, @RequestParam String lastName) {
-        employeeService.addEmployee(firstName, lastName);
-        return "Сотрудник " + firstName + " " + lastName + " успешно создан.";
+    @GetMapping(path = "/add/employee-list")
+    public String addToEmployeeList(@RequestParam String employee) {
+        employeeService.addToEmployeeList(employee);
+        return "Сотрудник " + employee + " успешно создан.";
     }
 
-    @GetMapping(path = "/remove")
-    public String remove(@RequestParam String firstName, @RequestParam String lastName) {
-        employeeService.dismissEmployee(firstName, lastName);
-        return "Сотрудник " + firstName + " " + lastName + " удалён.";
+    @GetMapping(path = "/remove/employee-list")
+    public String removeFromEmployeeList(@RequestParam String employee) {
+        employeeService.removeFromEmployeeList(employee);
+        return "Сотрудник удалён.";
     }
 
-    @GetMapping(path = "/find")
-    public Employee find(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.findEmployee(firstName, lastName);
+    @GetMapping(path = "/get/employee-list")
+    public List<String> getEmployeeList() {
+        return employeeService.getEmployeeList();
     }
+
+//    @GetMapping(path = "/find")
+//    public String find(@RequestParam String employee) {
+//        return employeeService.findEmployeeInList(employee);
+//    }
+
 }

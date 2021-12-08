@@ -3,51 +3,53 @@ package pro.sky.java.course2.homework4exceptions.service;
 import org.springframework.stereotype.Service;
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeBookOverFlowException;
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeNotFoundException;
-import pro.sky.java.course2.homework4exceptions.model.Employee;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    Employee[] employees = new Employee[2];
-
-
-    @Override
-    public boolean addEmployee(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                employees[i] = new Employee(firstName, lastName);
-                return true;
-            }
-        }
-        throw new EmployeeBookOverFlowException();
-    }
-
+    List<String> employeeList = new ArrayList<>(4);
 
     @Override
-    public boolean dismissEmployee(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] != null
-                    && employees[i].getFirstName().equals(firstName)
-                    && employees[i].getLastName().equals(lastName)) {
-                employees[i] = null;
-                return true;
-            }
-        }
-        throw new EmployeeBookOverFlowException();
+    public boolean addToEmployeeList(String employee) {
+//        for (int i = 0; i < employeeList.size(); i++) {
+//            if (employeeList.get(i) == null) {
+        return employeeList.add(employee);
+//            }
+//        }
+//        throw new EmployeeBookOverFlowException();
+//         ЕСЛИ РАСКОММЕНТИРОВАТЬ СТРОКИ - МЕТОД НЕ РАБОТАЕТ,
+//         КАК ВЫЗЫВАТЬ ОШИБКУ?
     }
 
-        public Employee findEmployee(String firstName, String lastName){
-            for (Employee employee : employees) {
-                if (employee != null
-                        && employee.getFirstName().equals(firstName)
-                        && employee.getLastName().equals(lastName)) {
-                    return employee;
-                }
-            }
-            throw new EmployeeNotFoundException();
+
+        @Override
+        public boolean removeFromEmployeeList (String employee){
+            return employeeList.remove(employee);
         }
-    }
+
+//        НЕ РАБОТАЕТ КОРРЕКТНО((
+//        @Override
+//        public String findEmployeeInList (String employee){
+//            for (String s : employeeList) {
+//                if (s.equals(employee)) {
+//                    return employee;
+//                }
+//            }
+//            throw new EmployeeNotFoundException();
+//        }
+
+
+        @Override
+        public List<String> getEmployeeList () {
+            return employeeList;
+        }
+
+
+}
 
 
 
