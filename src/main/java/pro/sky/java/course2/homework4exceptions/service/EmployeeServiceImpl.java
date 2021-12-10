@@ -16,7 +16,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean addToEmployeeList(String firstName, String lastName) {
-        if (checkEmployeeExist(firstName, lastName)) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employeeList.contains(employee))  {
             throw new EmployeeExistException();
         }
         return employeeList.add(new Employee(firstName, lastName));
@@ -25,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         @Override
         public boolean removeFromEmployeeList (String firstName, String lastName){
             Employee employee = new Employee(firstName, lastName);
-            if (checkEmployeeExist(firstName, lastName)) {
+            if (employeeList.contains(employee))  {
                     return employeeList.remove(employee);
                 }
                 throw new EmployeeNotFoundException();
@@ -34,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         @Override
         public Employee findEmployeeInList (String firstName, String lastName) {
             Employee employee = new Employee(firstName, lastName);
-            if (checkEmployeeExist(firstName, lastName)) {
+            if (employeeList.contains(employee)) {
                     return employee;
                 }
             throw new EmployeeNotFoundException();
@@ -45,15 +46,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 return employeeList;
             }
 
-        public boolean checkEmployeeExist(String firstName, String lastName) {
-            Employee employee = new Employee(firstName, lastName);
-            for (int i = 0; i < employeeList.size(); i++) {
-                if (employee.getFirstName().equals(firstName)
-                        && employee.getLastName().equals(lastName)) {
-                    return true;
-                }
-            } return false;
-        }
 
 
  }

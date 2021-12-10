@@ -16,6 +16,4 @@ public interface EmployeeService {
 
     List<Employee> getEmployeeList();
 
-    boolean checkEmployeeExist(String firstName, String lastName);
-
 }
