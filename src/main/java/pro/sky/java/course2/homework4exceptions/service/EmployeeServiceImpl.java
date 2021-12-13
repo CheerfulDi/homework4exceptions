@@ -5,47 +5,46 @@ import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeExistExceptio
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeNotFoundException;
 import pro.sky.java.course2.homework4exceptions.model.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    List<Employee> employeeList = new ArrayList<>();
+    Map<String, String> employees = new HashMap<>();
 
     @Override
-    public boolean addToEmployeeList(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee))  {
+    public void addToEmployeeList(String firstName, String lastName) {
+        if (employees.containsKey(lastName) && employees.containsValue(lastName)) {
             throw new EmployeeExistException();
+        } else {
+            employees.put(firstName, lastName);
         }
-        return employeeList.add(new Employee(firstName, lastName));
     }
 
     @Override
-    public boolean removeFromEmployeeList (String firstName, String lastName){
+    public void removeEmployee (String firstName, String lastName) {
+        if (employees.containsKey(lastName) && employees.containsValue(lastName)) {
+            employees.remove(lastName);
+        } else {
+            throw new EmployeeNotFoundException();
+        }
+    }
+
+    @Override
+    public String findEmployee (String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee))  {
-            return employeeList.remove(employee);
+        if (employees.containsKey(lastName) && employees.containsValue(lastName)) {
+            return employees.get(lastName);
+        } else {
+            throw new EmployeeNotFoundException();
         }
-        throw new EmployeeNotFoundException();
     }
 
     @Override
-    public Employee findEmployeeInList (String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employeeList.contains(employee)) {
-            return employee;
-        }
-        throw new EmployeeNotFoundException();
+    public Map<String, String> getEmployees() {
+        return employees;
     }
-
-    @Override
-    public List<Employee> getEmployeeList () {
-        return employeeList;
-    }
-
-
 
 }
