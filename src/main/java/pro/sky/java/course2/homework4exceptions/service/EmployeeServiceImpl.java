@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public String findEmployee (String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
         if (employees.containsKey(lastName) && employees.containsValue(lastName)) {
-            return employees.get(lastName);
+            return employees.get(employee);
         } else {
             throw new EmployeeNotFoundException();
         }
