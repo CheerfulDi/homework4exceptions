@@ -1,14 +1,19 @@
 package pro.sky.java.course2.homework4exceptions.service;
 
-import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeBookOverFlowException;
+import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeExistException;
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeNotFoundException;
 import pro.sky.java.course2.homework4exceptions.model.Employee;
 
+import java.util.List;
+
 public interface EmployeeService {
 
-    boolean addEmployee(String firstName, String lastName)throws EmployeeBookOverFlowException;
+    boolean addToEmployeeList(String firstName, String lastName)throws EmployeeExistException;
 
-    Employee findEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
+    boolean removeFromEmployeeList(String firstName, String lastName) throws EmployeeNotFoundException;
 
-    boolean dismissEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
+    Employee findEmployeeInList(String firstName, String lastName) throws EmployeeNotFoundException;
+
+    List<Employee> getEmployeeList();
+
 }
