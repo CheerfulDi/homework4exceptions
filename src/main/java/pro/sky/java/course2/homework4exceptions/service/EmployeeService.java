@@ -2,8 +2,9 @@ package pro.sky.java.course2.homework4exceptions.service;
 
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeExistException;
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeNotFoundException;
+import pro.sky.java.course2.homework4exceptions.model.Employee;
 
-import java.util.Map;
+import java.util.Collection;
 
 public interface EmployeeService {
 
@@ -11,8 +12,8 @@ public interface EmployeeService {
 
     void removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
 
-    String findEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
+    Employee findEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
 
-    Map<String, String> getEmployees();
+    Collection<Employee> getEmployees();
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.homework4exceptions.model.Employee;
 import pro.sky.java.course2.homework4exceptions.service.EmployeeService;
 
+import java.util.Collection;
 import java.util.Map;
 
 
@@ -33,12 +34,12 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/find")
-    public String find(@RequestParam String firstName, @RequestParam String lastName) {
+    public Employee find(@RequestParam String firstName, @RequestParam String lastName) {
         return employeeService.findEmployee(firstName, lastName);
     }
 
     @GetMapping(path = "/get/employees")
-    public Map<String, String> get() {
+    public Collection<Employee> get() {
         return employeeService.getEmployees();
     }
 
