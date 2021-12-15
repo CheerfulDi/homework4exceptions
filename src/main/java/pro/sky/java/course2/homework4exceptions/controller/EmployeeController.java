@@ -29,7 +29,7 @@ public class EmployeeController {
 
     @GetMapping(path = "/remove")
     public String remove(@RequestParam String firstName, @RequestParam String lastName) {
-        employeeService.removeEmployee(firstName,lastName);
+        employeeService.removeEmployee(firstName, lastName);
         return "Сотрудник удалён.";
     }
 

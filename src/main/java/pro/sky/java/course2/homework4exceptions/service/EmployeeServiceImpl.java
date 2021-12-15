@@ -18,15 +18,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void addToEmployeeList(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employees.containsKey(firstName+lastName)) {
+        String key = firstName+lastName;
+        if (employees.containsKey(key)) {
             throw new EmployeeExistException();
-        } else employees.put(firstName+lastName, employee);
+        } else employees.put(key, employee);
     }
 
     @Override
     public void removeEmployee (String firstName, String lastName) {
-        if (employees.containsKey(firstName+lastName)) {
-            employees.remove(firstName+lastName);
+        String key = firstName+lastName;
+        if (employees.containsKey(key)) {
+            employees.remove(key);
         } else {
             throw new EmployeeNotFoundException();
         }
@@ -34,8 +36,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee (String firstName, String lastName) {
-        if (employees.containsKey(firstName+lastName)) {
-           return employees.get(firstName+lastName);
+        String key = firstName+lastName;
+        if (employees.containsKey(key)) {
+           return employees.get(key);
         } else {
             throw new EmployeeNotFoundException();
         }
