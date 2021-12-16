@@ -1,54 +1,52 @@
 package pro.sky.java.course2.homework4exceptions.service;
 
 import org.springframework.stereotype.Service;
-import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeBookOverFlowException;
+import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeExistException;
 import pro.sky.java.course2.homework4exceptions.exceptions.EmployeeNotFoundException;
 import pro.sky.java.course2.homework4exceptions.model.Employee;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    Employee[] employees = new Employee[2];
-
-
-    @Override
-    public boolean addEmployee(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] == null) {
-                employees[i] = new Employee(firstName, lastName);
-                return true;
-            }
-        }
-        throw new EmployeeBookOverFlowException();
-    }
-
+    Map<String, Employee> employees = new HashMap<>();
 
     @Override
-    public boolean dismissEmployee(String firstName, String lastName) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i] != null
-                    && employees[i].getFirstName().equals(firstName)
-                    && employees[i].getLastName().equals(lastName)) {
-                employees[i] = null;
-                return true;
-            }
-        }
-        throw new EmployeeBookOverFlowException();
+    public void addToEmployeeList(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        String key = firstName+lastName;
+        if (employees.containsKey(key)) {
+            throw new EmployeeExistException();
+        } else employees.put(key, employee);
     }
 
-        public Employee findEmployee(String firstName, String lastName){
-            for (Employee employee : employees) {
-                if (employee != null
-                        && employee.getFirstName().equals(firstName)
-                        && employee.getLastName().equals(lastName)) {
-                    return employee;
-                }
-            }
+    @Override
+    public void removeEmployee (String firstName, String lastName) {
+        String key = firstName+lastName;
+        if (employees.containsKey(key)) {
+            employees.remove(key);
+        } else {
             throw new EmployeeNotFoundException();
         }
     }
 
+    @Override
+    public Employee findEmployee (String firstName, String lastName) {
+        String key = firstName+lastName;
+        if (employees.containsKey(key)) {
+           return employees.get(key);
+        } else {
+            throw new EmployeeNotFoundException();
+        }
+    }
 
+    @Override
+    public Collection<Employee> getEmployees() {
+        return employees.values();
+    }
 
-
+}
