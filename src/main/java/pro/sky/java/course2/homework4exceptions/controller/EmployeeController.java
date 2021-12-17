@@ -22,9 +22,12 @@ public class EmployeeController {
     }
 
     @GetMapping(path = "/add")
-    public String add(@RequestParam String firstName, @RequestParam String lastName) {
-        employeeService.addToEmployeeList(firstName,lastName);
-        return "Сотрудник " + firstName + " " + lastName + " успешно создан.";
+    public String add(@RequestParam String firstName,
+                      @RequestParam String lastName,
+                      @RequestParam double salary,
+                      @RequestParam int department) {
+        employeeService.addToEmployeeList(firstName, lastName, salary, department);
+        return "Сотрудник " + firstName + " " + lastName + " успешно добавлен в отдел " + department;
     }
 
     @GetMapping(path = "/remove")

@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public interface EmployeeService {
 
-    void addToEmployeeList(String firstName, String lastName)throws EmployeeExistException;
+    void addToEmployeeList(String firstName, String lastName, double salary, int department) throws EmployeeExistException;
 
     void removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException;
 

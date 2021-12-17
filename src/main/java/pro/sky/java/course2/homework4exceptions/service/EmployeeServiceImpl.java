@@ -16,8 +16,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     Map<String, Employee> employees = new HashMap<>();
 
     @Override
-    public void addToEmployeeList(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public void addToEmployeeList(String firstName, String lastName, double salary, int department) {
+        Employee employee = new Employee(firstName, lastName, salary, department);
         String key = firstName+lastName;
         if (employees.containsKey(key)) {
             throw new EmployeeExistException();
